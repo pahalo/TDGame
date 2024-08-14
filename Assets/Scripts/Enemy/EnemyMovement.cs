@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {   
-    public float enemyMovementSpeed = 5f;
-
+    [HideInInspector]
+    public float enemyMovementSpeed;
     // List of all points the Enemy has to get through
     // Has to be instantiated in the Start Method
     private List<Transform> roadPoints;
     // The Point the Enemy is trying to get to
     private int currentPointIndex = 0;
+    // Declaring the enemystats  script variable
+    private EnemyStats enemyStats;
 
     void Start()
     {
@@ -28,15 +30,20 @@ public class EnemyMovement : MonoBehaviour
             }
         } else {
             // Only happens in case no road object was found
-            Debug.Log("No road object found");
+            Debug.LogError("No road object found");
+        }
+
+        // Find the enemy Stats script to get the value of the enemy movement speed
+        enemyStats = GetComponent<EnemyStats>();
+        if (enemyStats == null)
+        {
+            Debug.LogError("EnemyStats component missing on the object.");
+            return;
         }
     }
 
     void Update()
     {
-        // If no waypoints are available, do nothing
-        if (roadPoints == null || roadPoints.Count == 0) Debug.Log("la");
-
         // Move the enemy towards the current waypoint
         MoveToPoint(roadPoints[currentPointIndex]);
     }

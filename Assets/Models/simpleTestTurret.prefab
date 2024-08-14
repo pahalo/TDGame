@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3310911711574968806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990818708819628795}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &990818708819628795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310911711574968806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0.000000094156974, z: 0.000000094156974, w: 0.7071068}
+  m_LocalPosition: {x: -0.015904576, y: 0, z: 0.00004953921}
+  m_LocalScale: {x: 0.014458705, y: 0.024278615, z: 0.014458702}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5315602359488589636}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4532377439818871532
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      propertyPath: m_Name
+      value: simpleTestTurret
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8584684880803028392, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 990818708819628795}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1457609669611942363}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6481668823745700985}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7505681498536040313}
+  m_SourcePrefab: {fileID: 100100000, guid: c5820bb4822084e30967d9e9b85dcabe, type: 3}
+--- !u!1 &3613950227002216381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c5820bb4822084e30967d9e9b85dcabe,
+    type: 3}
+  m_PrefabInstance: {fileID: 4532377439818871532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1457609669611942363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3613950227002216381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 270cb2f822f5e48969b0bd145256930d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partToRotate: {fileID: 5315602359488589636}
+  turnSpeed: 10
+  rotationAngle: 45
+  readyToShoot: 0
+  target: {fileID: 0}
+--- !u!114 &6481668823745700985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3613950227002216381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca0408ecbc1be4da699d739af422cda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretTurnSpeed: 10
+  turretDamage: 100
+  turretShotSpeed: 2
+--- !u!114 &7505681498536040313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3613950227002216381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7330ff333ac4b569979359edf11f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8362434239356908193, guid: fbf033fec15474a4092166cb53cb8e52,
+    type: 3}
+  bulletSpawnPoint: {fileID: 990818708819628795}
+  shotSpeed: 0
+  turretDamage: 0
+--- !u!4 &5315602359488589636 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8584684880803028392, guid: c5820bb4822084e30967d9e9b85dcabe,
+    type: 3}
+  m_PrefabInstance: {fileID: 4532377439818871532}
+  m_PrefabAsset: {fileID: 0}
