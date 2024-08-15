@@ -25,12 +25,13 @@ public class Bullet : MonoBehaviour
     }
 
 
-    // Method to set the damage externally
+    // Method to set the damage the bullet deals
     public void SetDamage(float newDamage)
     {
         damage = newDamage;
     }
 
+    // Method to set the target so the bullet knows who to follow
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
@@ -40,11 +41,17 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            // Apply damage normally here
-            Debug.Log($"Hit {other.name} for {damage} damage.");
+            // Get the EnemyStats script to deal damage
+            EnemyStats enemyStats = other.GetComponent<EnemyStats>();
+            if (enemyStats != null)
+            {
+                // Apply damage to the enemy
+                enemyStats.EnemyGetDamage(damage);
+            }
             DestroyBullet();
         }
     }
+
     private void DestroyBullet(){   
         Destroy(gameObject); // Destroy the bullet upon hitting
     }
