@@ -37,6 +37,7 @@ public class TurretShooting : MonoBehaviour
     {
         if (bulletPrefab != null && bulletSpawnPoint != null)
         {
+            // Creating a new bullet at the spawnpoint
             GameObject bulletObject = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             Bullet bulletComponent = bulletObject.GetComponent<Bullet>();
             if (bulletComponent != null)
@@ -44,7 +45,6 @@ public class TurretShooting : MonoBehaviour
                 bulletComponent.SetDamage(turretDamage); // Set the current turret damage
                 bulletComponent.SetTarget(turretAiming.target); // Set the current target
             }
-            Debug.Log("Shooting");
         }
         else
         {

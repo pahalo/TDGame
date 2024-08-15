@@ -8,24 +8,26 @@ public class TurretAiming : MonoBehaviour
     public float rotationAngle; // Angle which will be added on the y rotation of the turret
     [HideInInspector]
     public bool readyToShoot = false; // Indicates if the turret has a valid target and is ready to shoot
+    private float turretRange; // The range within which the turret will target enemies
     [HideInInspector]
     public Transform target; // Current target enemy
 
     void Update()
     {
         UpdateTarget();
-        if (target != null)
+        // Check if there is a target and if it is close enough to be in the turrets range
+        if (target != null && Vector3.Distance(transform.position, target.position) <= turretRange)
         {
             LockOnTarget();
-        } 
+        }
         else 
         {
-            // If there is no target the turret will not shoot
+            // If there is no target or no target in range the turret will not shoot
             readyToShoot = false;
         }
     }
 
-    void UpdateTarget()
+    private void UpdateTarget()
     {
         // Find all enemies in the scene
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -52,12 +54,18 @@ public class TurretAiming : MonoBehaviour
         }
     }
 
-    void LockOnTarget()
+    private void LockOnTarget()
     {
-        readyToShoot = true;
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(partToRotate.rotation.eulerAngles.x, rotationAngle + rotation.y, partToRotate.rotation.eulerAngles.z);
+        readyToShoot = true;
+    }
+
+    // Method to set the turret's range from TurretStats
+    public void SetRange(float range)
+    {
+        turretRange = range;
     }
 }
