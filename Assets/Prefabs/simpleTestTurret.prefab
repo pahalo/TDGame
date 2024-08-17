@@ -219,6 +219,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7505681498536040313}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c5820bb4822084e30967d9e9b85dcabe,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6131902150181752596}
   m_SourcePrefab: {fileID: 100100000, guid: c5820bb4822084e30967d9e9b85dcabe, type: 3}
 --- !u!1 &3613950227002216381 stripped
 GameObject:
@@ -240,7 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partToRotate: {fileID: 5315602359488589636}
   turnSpeed: 10
-  rotationAngle: 45
+  rotationAngle: 90
   readyToShoot: 0
   target: {fileID: 0}
 --- !u!114 &6481668823745700985
@@ -255,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0408ecbc1be4da699d739af422cda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretTurnSpeed: 10
-  turretDamage: 100
+  turretTurnSpeed: 1
+  turretDamage: 20
   turretShotSpeed: 2
   turretID: 0
   turretRange: 3
@@ -275,9 +279,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8362434239356908193, guid: fbf033fec15474a4092166cb53cb8e52,
     type: 3}
-  bulletSpawnPoint: {fileID: 990818708819628795}
+  bulletSpawnPoints:
+  - {fileID: 990818708819628795}
   shotSpeed: 0
   turretDamage: 0
+--- !u!114 &6131902150181752596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3613950227002216381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1ff05d898f8408fa33824183f2b7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4137827541867599111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c5820bb4822084e30967d9e9b85dcabe,

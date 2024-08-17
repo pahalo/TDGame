@@ -17,9 +17,6 @@ public class BuildTurrets : MonoBehaviour
 
             // Set the turret ID
             SetTurretID(newTurret);
-
-            // Count the ID up for the next turret
-            nextTurretID++;
         }
         else
         {
@@ -40,5 +37,7 @@ public class BuildTurrets : MonoBehaviour
         {
             Debug.LogError("TurretStats component missing on the instantiated turret.");
         }
+        // Count the ID up for the next turret
+        nextTurretID++;
     }
 }

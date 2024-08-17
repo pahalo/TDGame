@@ -2,34 +2,31 @@ using UnityEngine;
 
 public class TurretAiming : MonoBehaviour
 {
-    public Transform partToRotate; // The part of the turret that should rotate to face the enemy
+    public Transform partToRotate; // Der Teil des Turms, der sich drehen soll
     [HideInInspector]
-    public float turnSpeed; // Speed at which the turret turns, set by TurretStats
-    public float rotationAngle; // Angle which will be added on the y rotation of the turret
+    public float turnSpeed = 5f; // Geschwindigkeit, mit der sich der Turm dreht
+    public float rotationAngle; // Winkel, der zur Y-Drehung des Turms hinzugefügt wird
     [HideInInspector]
-    public bool readyToShoot = false; // Indicates if the turret has a valid target and is ready to shoot
-    private float turretRange; // The range within which the turret will target enemies
+    public bool readyToShoot = false; // Gibt an, ob der Turm ein gültiges Ziel hat und schussbereit ist
+    private float turretRange; // Reichweite, innerhalb derer der Turm Feinde anvisiert
     [HideInInspector]
-    public Transform target; // Current target enemy
+    public Transform target; // Aktuelles Ziel
 
     void Update()
     {
         UpdateTarget();
-        // Check if there is a target and if it is close enough to be in the turrets range
         if (target != null && Vector3.Distance(transform.position, target.position) <= turretRange)
         {
             LockOnTarget();
         }
-        else 
+        else
         {
-            // If there is no target or no target in range the turret will not shoot
             readyToShoot = false;
         }
     }
 
     private void UpdateTarget()
     {
-        // Find all enemies in the scene
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
@@ -44,7 +41,7 @@ public class TurretAiming : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null)
+        if (nearestEnemy != null && shortestDistance <= turretRange)
         {
             target = nearestEnemy.transform;
         }
@@ -57,13 +54,20 @@ public class TurretAiming : MonoBehaviour
     private void LockOnTarget()
     {
         Vector3 dir = target.position - transform.position;
+        dir.y = 0; // Ignore the Y component to focus on horizontal rotation only
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(partToRotate.rotation.eulerAngles.x, rotationAngle + rotation.y, partToRotate.rotation.eulerAngles.z);
+        Vector3 targetRotation = lookRotation.eulerAngles;
+        
+        // Calculate the new rotation only on the Y-axis
+        float newYRotation = Mathf.LerpAngle(partToRotate.eulerAngles.y, rotationAngle + targetRotation.y, Time.deltaTime * turnSpeed);
+
+        // Apply the rotation only on the Y-axis
+        partToRotate.rotation = Quaternion.Euler(partToRotate.rotation.eulerAngles.x, newYRotation, partToRotate.rotation.eulerAngles.z);
+
+        // Set readyToShoot true
         readyToShoot = true;
     }
 
-    // Method to set the turret's range from TurretStats
     public void SetRange(float range)
     {
         turretRange = range;

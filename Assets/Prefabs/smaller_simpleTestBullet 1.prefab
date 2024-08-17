@@ -10,6 +10,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c1354e83f8ba94c2998470119337d3b2,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c1354e83f8ba94c2998470119337d3b2,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c1354e83f8ba94c2998470119337d3b2,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c1354e83f8ba94c2998470119337d3b2,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
@@ -58,15 +73,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c1354e83f8ba94c2998470119337d3b2,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: c1354e83f8ba94c2998470119337d3b2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7f0840fc52b8742828d5d2f27e65a57f, type: 2}
+      objectReference: {fileID: 2100000, guid: f1cc67316cc264f66a0454713db8c4ed, type: 2}
     - target: {fileID: 919132149155446097, guid: c1354e83f8ba94c2998470119337d3b2,
         type: 3}
       propertyPath: m_Name
-      value: simpleTestBullet
+      value: smaller_simpleTestBullet 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

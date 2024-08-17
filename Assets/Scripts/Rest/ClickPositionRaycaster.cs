@@ -3,11 +3,13 @@ using UnityEngine;
 public class ClickPositionRaycaster : MonoBehaviour
 {
     private BuildTurrets buildTurrets;
+    private UpgradeTurrets upgradeTurrets;
 
     void Start()
     {
         // Find the BuildTurrets script attached to the same GameObject
         buildTurrets = FindObjectOfType<BuildTurrets>();
+        upgradeTurrets = FindObjectOfType<UpgradeTurrets>();
 
         if (buildTurrets == null)
         {
@@ -39,6 +41,7 @@ public class ClickPositionRaycaster : MonoBehaviour
                         {   
                             int turretID = turretStats.turretID;
                             Debug.Log("Clicked on turret with ID: " + turretID);
+                            upgradeTurrets.UpgradeTurret(turretStats);
                         }
                         else
                         {
