@@ -6,6 +6,9 @@ public class BuildTurrets : MonoBehaviour
 {
     public GameObject turretPrefab; // The prefab to instantiate
     private int nextTurretID = 0; // Variable to keep track of the next turret ID
+    
+    private SupportTurret supportTurret;
+
 
     // Method to place the turret at the given position
     public void PlaceTurretAtPosition(Vector3 position)
@@ -17,6 +20,15 @@ public class BuildTurrets : MonoBehaviour
 
             // Set the turret ID
             SetTurretID(newTurret);
+
+            // Call all Support Turrets scripts to make sure that the new instantiated tower has the correct Buffs
+            SupportTurret[] allSupportTurrets = FindObjectsOfType<SupportTurret>();
+
+            // Call UpdateSupportTurretEffect on all SupportTurret instances
+            foreach (SupportTurret supportTurret in allSupportTurrets)
+            {
+                supportTurret.UpdateSupportTurretEffect();
+            }
         }
         else
         {
@@ -31,7 +43,7 @@ public class BuildTurrets : MonoBehaviour
         TurretStats turretStats = turret.GetComponent<TurretStats>();
         if (turretStats != null)
         {
-            turretStats.turretID = nextTurretID;
+            turretStats.SetTurretID(nextTurretID);
         }
         else
         {

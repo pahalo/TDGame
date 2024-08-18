@@ -1,18 +1,45 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TurretStats : MonoBehaviour
 {
+    public enum TurretType
+    {
+        Attack,
+        Support
+    }
+
+    public enum AttributeType
+    {
+        Range,
+        Attack,
+        Speed
+    }
+
+    [System.Serializable]
+    public class TurretAttribute
+    {
+        public AttributeType attributeType;
+        public float value;
+    }
+
+    public List<TurretAttribute> turretAttributes = new List<TurretAttribute>();
+    public TurretType turretType = TurretType.Attack;
+
     [SerializeField]
-    private float turretTurnSpeed = 10f; // Default turn speed
+    private float turretTurnSpeed = 10f;
     [SerializeField]
-    private float turretDamage = 10f; // Turret Damage
+    private float turretDamage = 10f;
     [SerializeField]
-    private float turretShotSpeed = 2f; // Turrets reload speed in seconds
-    public int turretID; // Turret Id which will be used to know which turret was selected and which is given through the BuildTurret script
+    private float turretShotSpeed = 2f;
     [SerializeField]
-    private float turretRange = 3f; // Range in which the will rotate and shoot at the Enemy
+    private int turretID;
     [SerializeField]
-    private float turretDistanceToOtherTurrets = 1f; // The nearest point arround a turret where an other turret can be build
+    private float turretRange = 3f;
+    [SerializeField]
+    private float turretDistanceToOtherTurrets = 1f;
+    [SerializeField]
+    private int turretLevel = 1;
 
     private TurretAiming turretAiming;
     private TurretShooting turretShooting;
@@ -20,34 +47,30 @@ public class TurretStats : MonoBehaviour
 
     private void Start()
     {
-        // Get the Aiming Component to set stats which are important for turning
-        turretAiming = GetComponent<TurretAiming>();
-        if (turretAiming == null)
+        if (turretType == TurretType.Attack)
         {
-            Debug.LogError("TurretAiming component missing on the object.");
-            return;
-        }
-        // Set the turn speed in TurretAiming
-        turretAiming.turnSpeed = turretTurnSpeed;
-        SetTurretRange(turretRange);
+            turretAiming = GetComponent<TurretAiming>();
+            if (turretAiming == null)
+            {
+                Debug.LogError("TurretAiming component missing on the object.");
+                return;
+            }
+            turretAiming.turnSpeed = turretTurnSpeed;
+            SetTurretRange(turretRange);
 
-        // Get the Shooting Component to set stats which are important for shooting
-        turretShooting = GetComponent<TurretShooting>();
-        if (turretShooting == null)
-        {
-            Debug.LogError("TurretShooting component missing on the object.");
-            return;
+            turretShooting = GetComponent<TurretShooting>();
+            if (turretShooting == null)
+            {
+                Debug.LogError("TurretShooting component missing on the object.");
+                return;
+            }
+            turretShooting.shotSpeed = turretShotSpeed;
+            turretShooting.turretDamage = turretDamage;
         }
-        // Set the shot speed and damage in TurretShooting
-        // The damage will later be given to the bullet thorugh the Turret Shooting script because it knows which bullet it fired
-        turretShooting.shotSpeed = turretShotSpeed;
-        turretShooting.turretDamage = turretDamage;
 
-        // Get the RangeIndicator Component from the child object
         rangeIndicator = GetComponentInChildren<RangeIndicator>();
         if (rangeIndicator != null)
         {
-            // Set the range indicator radius based on turretDistanceToOtherTurrets
             rangeIndicator.SetRadius(turretDistanceToOtherTurrets);
         }
         else
@@ -55,8 +78,23 @@ public class TurretStats : MonoBehaviour
             Debug.LogWarning("RangeIndicator component not found in child objects.");
         }
     }
+
+    public float GetTurretDamage()
+    {
+        return turretDamage;
+    }
+
+    public void SetTurretDamage(float newDamage)
+    {
+        turretDamage = newDamage;
+    }
+
+    public float GetTurretRange()
+    {
+        return turretRange;
+    }
     
-    // Method to set the turret's range in the TurretAiming script
+
     public void SetTurretRange(float range)
     {
         turretRange = range;
@@ -66,12 +104,36 @@ public class TurretStats : MonoBehaviour
             turretAiming.SetRange(turretRange);
         }
     }
-    // Draw the turret range using Gizmos
-    private void OnDrawGizmosSelected()
+    public float GetTurretShotSpeed()
     {
-        // Set the Gizmo color to green
+        return turretShotSpeed;
+    }
+    public void SetTurretShotSpeed(float speed)
+    {
+        turretShotSpeed = speed;
+
+        if (turretShooting != null)
+        {
+            turretShooting.shotSpeed = turretShotSpeed;
+        }
+    }
+    
+    public int GetTurretLevel(){
+        return turretLevel;
+    }
+    public void SetTurretLevel(int level){
+        turretLevel = level;
+
+    }
+    public int GetTurretID(){
+        return turretID;
+    }
+    public void SetTurretID(int newID){
+        turretID = newID;
+    }
+   private void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.green;
-        // Draw a wire sphere at the turret's position with a radius of turretRange
         Gizmos.DrawWireSphere(transform.position, turretRange);
     }
 }

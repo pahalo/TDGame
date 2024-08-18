@@ -336,7 +336,7 @@ PrefabInstance:
     - target: {fileID: 3613950227002216381, guid: 71d8885381ffa49d090d56ab4bf6f72d,
         type: 3}
       propertyPath: m_Name
-      value: simpleTestTurret Variant
+      value: simpleTestTurret2
       objectReference: {fileID: 0}
     - target: {fileID: 4137827541867599111, guid: 71d8885381ffa49d090d56ab4bf6f72d,
         type: 3}

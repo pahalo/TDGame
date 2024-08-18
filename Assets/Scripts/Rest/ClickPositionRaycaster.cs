@@ -39,8 +39,6 @@ public class ClickPositionRaycaster : MonoBehaviour
                         TurretStats turretStats = parentTransform.GetComponent<TurretStats>();
                         if (turretStats != null)
                         {   
-                            int turretID = turretStats.turretID;
-                            Debug.Log("Clicked on turret with ID: " + turretID);
                             upgradeTurrets.UpgradeTurret(turretStats);
                         }
                         else

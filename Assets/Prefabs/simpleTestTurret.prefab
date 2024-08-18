@@ -259,12 +259,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0408ecbc1be4da699d739af422cda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretTurnSpeed: 1
+  turretAttributes: []
+  turretType: 0
+  turretTurnSpeed: 5
   turretDamage: 20
   turretShotSpeed: 2
   turretID: 0
   turretRange: 3
   turretDistanceToOtherTurrets: 0.4
+  turretLevel: 1
 --- !u!114 &7505681498536040313
 MonoBehaviour:
   m_ObjectHideFlags: 0
