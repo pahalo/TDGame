@@ -5,6 +5,8 @@ public class ClickPositionRaycaster : MonoBehaviour
     private BuildTurrets buildTurrets;
     private UpgradeTurrets upgradeTurrets;
 
+    private int selectedPathIndex = -1; // Variable zum Speichern des ausgewählten Upgrade-Pfads
+
     void Start()
     {
         // Find the BuildTurrets script attached to the same GameObject
@@ -19,15 +21,18 @@ public class ClickPositionRaycaster : MonoBehaviour
 
     void Update()
     {
-        // ----- WIP ------
-        // Check for turret selection keys
+        // Check for turret selection keys and upgrade path selection keys
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             buildTurrets.SelectTurretType(0);
+            selectedPathIndex = 0;
+            Debug.Log("Selected Turret Type 1 and Upgrade Path 1");
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             buildTurrets.SelectTurretType(1);
+            selectedPathIndex = 1;
+            Debug.Log("Selected Turret Type 2 and Upgrade Path 2");
         }
 
         if (Input.GetMouseButtonDown(0)) // 0 is the left mouse button
@@ -49,8 +54,16 @@ public class ClickPositionRaycaster : MonoBehaviour
                         // Get the TurretStats component from the parent object
                         TurretStats turretStats = parentTransform.GetComponent<TurretStats>();
                         if (turretStats != null)
-                        {   
-                            upgradeTurrets.UpgradeTurret(turretStats);
+                        {
+                            if (selectedPathIndex >= 0 && selectedPathIndex < turretStats.upgradePaths.Count)
+                            {
+                                // Upgrade the turret with the selected path
+                                upgradeTurrets.UpgradeTurret(turretStats, selectedPathIndex);
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Invalid Upgrade Path selected.");
+                            }
                         }
                         else
                         {
@@ -71,7 +84,7 @@ public class ClickPositionRaycaster : MonoBehaviour
         }
     }
 
-    // return true if the colliders Tag is turret to know if it is a turret
+    // Return true if the collider's tag is "Turret" to know if it is a turret
     private bool IsClickOnTurret(RaycastHit hit)
     {
         // Check if the clicked object is tagged as "Turret"

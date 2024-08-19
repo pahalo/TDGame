@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class UpgradeTurrets : MonoBehaviour
 {
-    public void UpgradeTurret(TurretStats turretStats)
+    public void UpgradeTurret(TurretStats turretStats, int selectedPathIndex)
     {
-        // Check if there is a next upgrade prefab assigned
-        if (turretStats.GetNextUpgradePrefab() == null)
+        // Holen des nächsten Upgrade-Prefabs basierend auf dem ausgewählten Pfad
+        GameObject nextPrefab = turretStats.GetNextUpgradePrefab(selectedPathIndex);
+        if (nextPrefab == null)
         {
             return;
         }
@@ -24,7 +25,7 @@ public class UpgradeTurrets : MonoBehaviour
             Destroy(turretStats.gameObject);
 
             // Instantiate the new turret prefab at the same position and rotation
-            GameObject newTurret = Instantiate(turretStats.GetNextUpgradePrefab(), position, rotation);
+            GameObject newTurret = Instantiate(nextPrefab, position, rotation);
 
             // Call all Support Turrets scripts to make sure that the new instantiated tower has the correct Buffs
             SupportTurret[] allSupportTurrets = FindObjectsOfType<SupportTurret>();

@@ -262,12 +262,14 @@ MonoBehaviour:
   turretType: 0
   turretAttributes: []
   upgradePaths:
-  - pathName: New Path
-    upgradePrefab: {fileID: 0}
-  nextUpgradePrefab: {fileID: 1642108811423094988, guid: 57e27c779ce3648a3808648f5fa9f028,
-    type: 3}
+  - pathName: Path 1
+    upgradePrefab: {fileID: 1642108811423094988, guid: 57e27c779ce3648a3808648f5fa9f028,
+      type: 3}
+  - pathName: Path 2
+    upgradePrefab: {fileID: 2196121349986666316, guid: 3155dca00ca514a4da361985d015a15d,
+      type: 3}
   turretTurnSpeed: 5
-  turretDamage: 20
+  turretDamage: 50
   turretShotSpeed: 2
   turretID: 0
   turretRange: 3

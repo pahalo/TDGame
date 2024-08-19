@@ -23,11 +23,16 @@ public class TurretStats : MonoBehaviour
         public float value;
     }
 
-    public List<TurretAttribute> turretAttributes = new List<TurretAttribute>();
-    public TurretType turretType = TurretType.Attack;
+    [System.Serializable]
+    public class UpgradePath
+    {
+        public string pathName;
+        public GameObject upgradePrefab;
+    }
 
-    [SerializeField]
-    private GameObject nextUpgradePrefab; // Das nächste Upgrade-GameObject
+    public TurretType turretType = TurretType.Attack;
+    public List<TurretAttribute> turretAttributes = new List<TurretAttribute>();
+    public List<UpgradePath> upgradePaths = new List<UpgradePath>();
 
     [SerializeField]
     private float turretTurnSpeed = 10f;
@@ -84,14 +89,13 @@ public class TurretStats : MonoBehaviour
         }
     }
 
-    public GameObject GetNextUpgradePrefab()
+    public GameObject GetNextUpgradePrefab(int pathIndex)
     {
-        return nextUpgradePrefab;
-    }
-
-    public void SetNextUpgradePrefab(GameObject prefab)
-    {
-        nextUpgradePrefab = prefab;
+        if (pathIndex >= 0 && pathIndex < upgradePaths.Count)
+        {
+            return upgradePaths[pathIndex].upgradePrefab;
+        }
+        return null;
     }
 
     public float GetTurretDamage()
