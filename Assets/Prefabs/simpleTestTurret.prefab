@@ -259,8 +259,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0408ecbc1be4da699d739af422cda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretAttributes: []
   turretType: 0
+  turretAttributes: []
+  upgradePaths:
+  - pathName: New Path
+    upgradePrefab: {fileID: 0}
+  nextUpgradePrefab: {fileID: 1642108811423094988, guid: 57e27c779ce3648a3808648f5fa9f028,
+    type: 3}
   turretTurnSpeed: 5
   turretDamage: 20
   turretShotSpeed: 2
@@ -268,6 +273,7 @@ MonoBehaviour:
   turretRange: 3
   turretDistanceToOtherTurrets: 0.4
   turretLevel: 1
+  turretCost: 100
 --- !u!114 &7505681498536040313
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,17 @@ public class ClickPositionRaycaster : MonoBehaviour
 
     void Update()
     {
+        // ----- WIP ------
+        // Check for turret selection keys
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            buildTurrets.SelectTurretType(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            buildTurrets.SelectTurretType(1);
+        }
+
         if (Input.GetMouseButtonDown(0)) // 0 is the left mouse button
         {
             // Create a ray from the camera through the mouse position

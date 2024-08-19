@@ -395,6 +395,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6481668823745700985, guid: 71d8885381ffa49d090d56ab4bf6f72d,
         type: 3}
+      propertyPath: turretLevel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6481668823745700985, guid: 71d8885381ffa49d090d56ab4bf6f72d,
+        type: 3}
       propertyPath: turretRange
       value: 5
       objectReference: {fileID: 0}
@@ -411,8 +416,14 @@ PrefabInstance:
     - target: {fileID: 6481668823745700985, guid: 71d8885381ffa49d090d56ab4bf6f72d,
         type: 3}
       propertyPath: turretTurnSpeed
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6481668823745700985, guid: 71d8885381ffa49d090d56ab4bf6f72d,
+        type: 3}
+      propertyPath: nextUpgradePrefab
+      value: 
+      objectReference: {fileID: 2196121349986666316, guid: 3155dca00ca514a4da361985d015a15d,
+        type: 3}
     - target: {fileID: 7505681498536040313, guid: 71d8885381ffa49d090d56ab4bf6f72d,
         type: 3}
       propertyPath: bulletPrefab

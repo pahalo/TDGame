@@ -27,6 +27,9 @@ public class TurretStats : MonoBehaviour
     public TurretType turretType = TurretType.Attack;
 
     [SerializeField]
+    private GameObject nextUpgradePrefab; // Das nächste Upgrade-GameObject
+
+    [SerializeField]
     private float turretTurnSpeed = 10f;
     [SerializeField]
     private float turretDamage = 10f;
@@ -40,6 +43,8 @@ public class TurretStats : MonoBehaviour
     private float turretDistanceToOtherTurrets = 1f;
     [SerializeField]
     private int turretLevel = 1;
+    [SerializeField]
+    private int turretCost = 100;
 
     private TurretAiming turretAiming;
     private TurretShooting turretShooting;
@@ -79,6 +84,16 @@ public class TurretStats : MonoBehaviour
         }
     }
 
+    public GameObject GetNextUpgradePrefab()
+    {
+        return nextUpgradePrefab;
+    }
+
+    public void SetNextUpgradePrefab(GameObject prefab)
+    {
+        nextUpgradePrefab = prefab;
+    }
+
     public float GetTurretDamage()
     {
         return turretDamage;
@@ -93,7 +108,6 @@ public class TurretStats : MonoBehaviour
     {
         return turretRange;
     }
-    
 
     public void SetTurretRange(float range)
     {
@@ -104,10 +118,12 @@ public class TurretStats : MonoBehaviour
             turretAiming.SetRange(turretRange);
         }
     }
+
     public float GetTurretShotSpeed()
     {
         return turretShotSpeed;
     }
+
     public void SetTurretShotSpeed(float speed)
     {
         turretShotSpeed = speed;
@@ -117,21 +133,38 @@ public class TurretStats : MonoBehaviour
             turretShooting.shotSpeed = turretShotSpeed;
         }
     }
-    
-    public int GetTurretLevel(){
+
+    public int GetTurretLevel()
+    {
         return turretLevel;
     }
-    public void SetTurretLevel(int level){
-        turretLevel = level;
 
+    public void SetTurretLevel(int level)
+    {
+        turretLevel = level;
     }
-    public int GetTurretID(){
+
+    public int GetTurretID()
+    {
         return turretID;
     }
-    public void SetTurretID(int newID){
+
+    public void SetTurretID(int newID)
+    {
         turretID = newID;
     }
-   private void OnDrawGizmosSelected()
+
+    public int GetTurretCost()
+    {
+        return turretCost;
+    }
+
+    public void SetTurretCost(int newCost)
+    {
+        turretCost = newCost;
+    }
+
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, turretRange);

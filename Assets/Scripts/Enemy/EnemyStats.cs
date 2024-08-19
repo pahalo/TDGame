@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public float enemyMovementSpeed = 5f;
-    public float enemyMaxHealth = 100f;
-    public float enemyCurrentHealth;
+    [SerializeField]
+    private float enemyMovementSpeed = 5f;
+    [SerializeField]
+    private float enemyMaxHealth = 100f;
+    [SerializeField]
+    private float enemyCurrentHealth;
+    [SerializeField]
+    private int bounty = 25;
+
 
     private EnemyMovement enemyMovement;
 
@@ -39,6 +45,7 @@ public class EnemyStats : MonoBehaviour
     }
     // This function will destroy the Enemy after it got no health remaining and after e.g. money and xp was given to the player
     private void Die(){
+        GameManager.GetInstance().AddMoney(bounty);
         Destroy(gameObject);
     }
 }

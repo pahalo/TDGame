@@ -8,14 +8,24 @@ public class TurretStatsEditor : Editor
     {
         // Get the turret stats object
         TurretStats turretStats = (TurretStats)target;
-
+        
         // Display the turret type dropdown
         turretStats.turretType = (TurretStats.TurretType)EditorGUILayout.EnumPopup("Turret Type", turretStats.turretType);
 
-        // Only display turretAttributes and turretModes if the turret is of type Support
+        // Display the next upgrade prefab field at the top
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("nextUpgradePrefab"), new GUIContent("Next Upgrade Prefab"));
+
+        // Display properties specific to the Attack turret type
+        if (turretStats.turretType == TurretStats.TurretType.Attack)
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("turretTurnSpeed"), new GUIContent("Turn Speed"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("turretDamage"), new GUIContent("Damage"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("turretShotSpeed"), new GUIContent("Shot Speed"));
+        }
+
+        // Display properties specific to the Support turret type
         if (turretStats.turretType == TurretStats.TurretType.Support)
         {
-            // Display the list of turret attributes with dropdowns and values
             EditorGUILayout.LabelField("Support Turret Attributes");
             SerializedProperty turretAttributesProperty = serializedObject.FindProperty("turretAttributes");
 
@@ -46,24 +56,12 @@ public class TurretStatsEditor : Editor
             }
         }
 
-        // Display the properties specific to the Attack turret type
-        if (turretStats.turretType == TurretStats.TurretType.Attack)
-        {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("turretTurnSpeed"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("turretDamage"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("turretShotSpeed"));
-        }
-        // Display the properties specific to the Support turret type
-        if (turretStats.turretType == TurretStats.TurretType.Support)
-        {
-            
-        }
-
         // Display the properties common to both turret types
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretRange"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretDistanceToOtherTurrets"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretID"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretLevel"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretRange"), new GUIContent("Range"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretDistanceToOtherTurrets"), new GUIContent("Distance to Other Turrets"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretID"), new GUIContent("Turret ID"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretLevel"), new GUIContent("Level"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("turretCost"), new GUIContent("Cost"));
 
         // Apply changes to the serialized object
         serializedObject.ApplyModifiedProperties();

@@ -115,6 +115,7 @@ MonoBehaviour:
   enemyMovementSpeed: 2.5
   enemyMaxHealth: 100
   enemyCurrentHealth: 0
+  bounty: 25
 --- !u!135 &-1724532125367008839
 SphereCollider:
   m_ObjectHideFlags: 0
