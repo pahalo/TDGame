@@ -12,6 +12,8 @@ public class EnemyStats : MonoBehaviour
     private float enemyCurrentHealth;
     [SerializeField]
     private int bounty = 25;
+    [SerializeField]
+    private int enemyDamageOnPlayersHealth = 1;
 
 
     private EnemyMovement enemyMovement;
@@ -43,6 +45,11 @@ public class EnemyStats : MonoBehaviour
             Die();
         }
     }
+    // Function to get the damgae the Enemy will deal the player if it get through
+    public int GetEnemyDamageOnPlayersHealth(){
+        return enemyDamageOnPlayersHealth;
+    }
+
     // This function will destroy the Enemy after it got no health remaining and after e.g. money and xp was given to the player
     private void Die(){
         GameManager.GetInstance().AddMoney(bounty);

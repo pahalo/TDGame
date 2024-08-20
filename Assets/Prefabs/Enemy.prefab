@@ -116,6 +116,7 @@ MonoBehaviour:
   enemyMaxHealth: 100
   enemyCurrentHealth: 0
   bounty: 25
+  enemyDamageOnPlayersHealth: 1
 --- !u!135 &-1724532125367008839
 SphereCollider:
   m_ObjectHideFlags: 0

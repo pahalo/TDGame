@@ -13,7 +13,8 @@ public class EnemyMovement : MonoBehaviour
     private int currentPointIndex = 0;
     // Declaring the enemystats  script variable
     private EnemyStats enemyStats;
-
+    // Declaring the Players Health script
+    private PlayersHealthManager playersHealthManager;
     void Start()
     {
         // Find the Road object in the scene and get the waypoints
@@ -40,6 +41,12 @@ public class EnemyMovement : MonoBehaviour
             Debug.LogError("EnemyStats component missing on the object.");
             return;
         }
+
+        playersHealthManager = GameObject.FindObjectOfType<PlayersHealthManager>();
+        if (playersHealthManager == null)
+        {
+            Debug.LogError("PlayersHealthManager not found in the scene.");
+        }
     }
 
     void Update()
@@ -64,8 +71,11 @@ public class EnemyMovement : MonoBehaviour
             // If the last waypoint is reached, handle what happens next (e.g., destroy the enemy)
             if (currentPointIndex >= roadPoints.Count)
             {
-                // Example: Enemy reaches the end and is destroyed
-                Debug.Log("Last waypoint got reached");
+                // Enemy reaches the end and is destroyed
+                if (playersHealthManager != null)
+                {
+                    playersHealthManager.TakeDamage(enemyStats.GetEnemyDamageOnPlayersHealth());
+                }
                 Destroy(gameObject);
             }
         }
