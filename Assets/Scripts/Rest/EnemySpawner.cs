@@ -34,6 +34,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        // Dont spawn enmies if the game is paused
+        if(PauseMenu.gameIsPaused == true) { return; }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpawnEnemy();

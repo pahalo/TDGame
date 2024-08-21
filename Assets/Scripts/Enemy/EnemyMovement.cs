@@ -11,10 +11,11 @@ public class EnemyMovement : MonoBehaviour
     private List<Transform> roadPoints;
     // The Point the Enemy is trying to get to
     private int currentPointIndex = 0;
-    // Declaring the enemystats  script variable
+    // Declaring the enemystats script variable
     private EnemyStats enemyStats;
-    // Declaring the Players Health script
-    private PlayersHealthManager playersHealthManager;
+    // Declaration of the GameManager
+    private GameManager gameManager;
+
     void Start()
     {
         // Find the Road object in the scene and get the waypoints
@@ -29,23 +30,26 @@ public class EnemyMovement : MonoBehaviour
             {
                 Debug.LogError("No waypoints found in the Road object.");
             }
-        } else {
+        }
+        else
+        {
             // Only happens in case no road object was found
             Debug.LogError("No road object found");
         }
 
-        // Find the enemy Stats script to get the value of the enemy movement speed
+        // Find the enemyStats script to get the value of the enemy movement speed
         enemyStats = GetComponent<EnemyStats>();
         if (enemyStats == null)
         {
             Debug.LogError("EnemyStats component missing on the object.");
             return;
         }
-
-        playersHealthManager = GameObject.FindObjectOfType<PlayersHealthManager>();
-        if (playersHealthManager == null)
+  
+        // Find the GameManager
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+        if (gameManager == null)
         {
-            Debug.LogError("PlayersHealthManager not found in the scene.");
+            Debug.LogError("GameManager not found in the scene.");
         }
     }
 
@@ -72,9 +76,9 @@ public class EnemyMovement : MonoBehaviour
             if (currentPointIndex >= roadPoints.Count)
             {
                 // Enemy reaches the end and is destroyed
-                if (playersHealthManager != null)
+                if (gameManager != null)
                 {
-                    playersHealthManager.TakeDamage(enemyStats.GetEnemyDamageOnPlayersHealth());
+                    gameManager.TakeDamage(enemyStats.GetEnemyDamageOnPlayersHealth());
                 }
                 Destroy(gameObject);
             }

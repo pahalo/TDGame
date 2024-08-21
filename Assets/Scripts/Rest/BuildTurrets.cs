@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class BuildTurrets : MonoBehaviour
 {
-    public GameObject[] turretPrefabs; // The List of Prefabs to choose, which will be build
+    public GameObject[] turretPrefabs; // The List of Prefabs to choose, which will be built
     private int selectedTurretIndex = 0;  // Index to keep track of the selected turret type
     private int nextTurretID = 0; // Variable to keep track of the next turret ID
     
     private SupportTurret supportTurret;
+    private GameManager gameManager;
+
+    private void Start() {
+        // Find the GameManager in the scene
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager not found in the scene.");
+        }
+    }
 
     // Method to select turret type based on key pressed
     public void SelectTurretType(int turretIndex)
@@ -28,18 +38,18 @@ public class BuildTurrets : MonoBehaviour
     {
         if (turretPrefabs[selectedTurretIndex] != null)
         {   
-            // Get the turretStats script of the turret to Build in order to get the turret cost
+            // Get the TurretStats script of the turret to build in order to get the turret cost
             TurretStats turretStats = turretPrefabs[selectedTurretIndex].GetComponent<TurretStats>();
 
-            // Get the GameManager and compare the Player Money and the Turret Cost
-            if(GameManager.GetInstance().SpendMoney(turretStats.GetTurretCost())){
-                // Instantiate the choosen turret at the given position
+            // Compare the player's money and the turret cost using the GameManager
+            if(gameManager.SpendMoney(turretStats.GetTurretCost())){
+                // Instantiate the chosen turret at the given position
                 GameObject newTurret = Instantiate(turretPrefabs[selectedTurretIndex], position, Quaternion.identity);
 
                 // Set the turret ID
                 SetTurretID(newTurret);
 
-                // Call all Support Turrets scripts to make sure that the new instantiated tower has the correct Buffs
+                // Call all SupportTurret scripts to ensure that the new instantiated tower has the correct buffs
                 SupportTurret[] allSupportTurrets = FindObjectsOfType<SupportTurret>();
 
                 // Call UpdateSupportTurretEffect on all SupportTurret instances
@@ -70,7 +80,7 @@ public class BuildTurrets : MonoBehaviour
         {
             Debug.LogError("TurretStats component missing on the instantiated turret.");
         }
-        // Count the ID up for the next turret
+        // Increment the ID for the next turret
         nextTurretID++;
     }
 }

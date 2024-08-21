@@ -2,17 +2,29 @@ using UnityEngine;
 
 public class UpgradeTurrets : MonoBehaviour
 {
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        // Find the GameManager in the scene
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager not found in the scene.");
+        }
+    }
+
     public void UpgradeTurret(TurretStats turretStats, int selectedPathIndex)
     {
-        // Holen des nächsten Upgrade-Prefabs basierend auf dem ausgewählten Pfad
+        // Get the next upgrade prefab based on the selected path
         GameObject nextPrefab = turretStats.GetNextUpgradePrefab(selectedPathIndex);
         if (nextPrefab == null)
         {
             return;
         }
 
-        // Get the GameManager and compare the Player Money and the Turret Cost
-        if (GameManager.GetInstance().SpendMoney(turretStats.GetTurretCost()))
+        // Compare the player's money and the turret upgrade cost
+        if (gameManager.SpendMoney(turretStats.GetTurretCost()))
         {
             // Get the position and rotation of the current turret
             Vector3 position = turretStats.transform.position;
@@ -27,7 +39,7 @@ public class UpgradeTurrets : MonoBehaviour
             // Instantiate the new turret prefab at the same position and rotation
             GameObject newTurret = Instantiate(nextPrefab, position, rotation);
 
-            // Call all Support Turrets scripts to make sure that the new instantiated tower has the correct Buffs
+            // Call all SupportTurret scripts to ensure the new turret has the correct buffs
             SupportTurret[] allSupportTurrets = FindObjectsOfType<SupportTurret>();
 
             // Call UpdateSupportTurretEffect on all SupportTurret instances
@@ -39,7 +51,7 @@ public class UpgradeTurrets : MonoBehaviour
             // Get the TurretStats component from the newly instantiated turret
             TurretStats newTurretStats = newTurret.GetComponent<TurretStats>();
 
-            // Ensure that the new turret has a TurretStats component before proceeding
+            // Ensure the new turret has a TurretStats component before proceeding
             if (newTurretStats != null)
             {
                 // Set the level of the new turret to be one higher than the previous turret

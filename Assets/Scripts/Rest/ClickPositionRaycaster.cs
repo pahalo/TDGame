@@ -21,6 +21,8 @@ public class ClickPositionRaycaster : MonoBehaviour
 
     void Update()
     {
+        // If the game is paused there should be no inputs
+        if(PauseMenu.gameIsPaused == true) { return; }
         // Check for turret selection keys and upgrade path selection keys
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
