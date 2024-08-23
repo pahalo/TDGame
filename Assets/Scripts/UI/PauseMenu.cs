@@ -58,11 +58,17 @@ public class PauseMenu : MonoBehaviour
 
     private void GoToTheHomeScreen()
     {
-    // Saving player data
-    SafeSystem.SavePlayerData(FindObjectOfType<GameManager>());
+        // Find the current GameManager instance
+        GameManager gameManager = FindObjectOfType<GameManager>();
 
-    // Pause time and get back to the Home scren scene
-    Time.timeScale = 1f;
-    SceneManager.LoadScene("HomeScreen");
-}
+        // Saving player data for the current map
+       if (gameManager != null)
+        {
+            gameManager.SaveBeforeSceneChange();
+        }
+
+        // Pause time and get back to the Home screen scene
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("HomeScreen");
+    }
 }

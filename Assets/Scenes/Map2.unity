@@ -1468,7 +1468,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 369af290cce9f41d2ba4e135d062b828, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1617,7 +1617,7 @@ MonoBehaviour:
   maxHealth: 10
   playersCurrentHealth: 0
   playerMoney: 200
-  currentMapName: Map1
+  currentMapName: Map2
 --- !u!1 &2057363556
 GameObject:
   m_ObjectHideFlags: 0

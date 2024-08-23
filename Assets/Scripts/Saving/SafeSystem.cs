@@ -4,28 +4,37 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SafeSystem
 {
-    public static void SavePlayerData(GameManager gameManager)
+    private static string GetMapFilePath(string mapName)
     {
-        string path = Application.persistentDataPath + "/player.sav";
+        return Application.persistentDataPath + "/" + mapName + ".sav";
+    }
+
+    // Method to save player data for a specific map
+    public static void SaveMapData(string mapName, int health, int money)
+    {
+        string path = GetMapFilePath(mapName);
 
         try
         {
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(path, FileMode.Create))
             {
-                PlayerData data = new PlayerData(gameManager);
-                formatter.Serialize(stream, data);
+                MapData mapData = new MapData(mapName, health, money);
+                formatter.Serialize(stream, mapData);
             }
         }
         catch (IOException ex)
         {
-            Debug.LogError("Failed to save player data: " + ex.Message);
+            Debug.LogError("Failed to save map data: " + ex.Message);
         }
     }
 
-    public static PlayerData LoadPlayerData()
+
+    // Method to load player data for a specific map
+    public static MapData LoadMapData(string mapName)
     {
-        string path = Application.persistentDataPath + "/player.sav";
+        string path = GetMapFilePath(mapName);
+
         if (File.Exists(path))
         {
             try
@@ -33,36 +42,42 @@ public static class SafeSystem
                 BinaryFormatter formatter = new BinaryFormatter();
                 using (FileStream stream = new FileStream(path, FileMode.Open))
                 {
-                    PlayerData data = formatter.Deserialize(stream) as PlayerData;
-                    return data;
+                    MapData mapData = formatter.Deserialize(stream) as MapData;
+                    return mapData;
                 }
             }
             catch (IOException ex)
             {
-                Debug.LogError("Failed to load player data: " + ex.Message);
+                Debug.LogError("Failed to load map data: " + ex.Message);
                 return null;
             }
         }
         else
         {
-            Debug.LogWarning("Save file not found in " + path);
+            Debug.LogWarning("Map save file not found for " + mapName);
             return null;
         }
     }
 
-    public static void DeletePlayerData()
+    // Method to delete player data for a specific map
+    public static void DeleteMapData(string mapName)
     {
-        string path = Application.persistentDataPath + "/player.sav";
+        string path = GetMapFilePath(mapName);
         if (File.Exists(path))
         {
             try
             {
                 File.Delete(path);
+                Debug.Log("Deleted save file for " + mapName);
             }
             catch (IOException ex)
             {
-                Debug.LogError("Failed to delete player data: " + ex.Message);
+                Debug.LogError("Failed to delete map data: " + ex.Message);
             }
+        }
+        else
+        {
+            Debug.LogWarning("Save file not found for " + mapName);
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,16 +12,20 @@ public class GameManager : MonoBehaviour
 
     // Static flag to control whether saved data should be loaded
     public static bool loadSavedData = false;
+    private string currentMapName;  // The name of the current map
 
     private void Start()
     {
+        // Get the current scene name dynamically
+        currentMapName = SceneManager.GetActiveScene().name;
+        
         // Set player's health to max
         playersCurrentHealth = maxHealth;
 
         // Load saved data only if the flag is set to true
         if (loadSavedData)
         {
-            LoadData();
+            LoadMapData(currentMapName);  // Load data specific to the current map
         }
     }
 
@@ -72,9 +77,9 @@ public class GameManager : MonoBehaviour
     }
 
     // Method to load saved player data
-    public void LoadData()
+    public void LoadMapData(string mapName)
     {
-        PlayerData data = SafeSystem.LoadPlayerData();
+        MapData data = SafeSystem.LoadMapData(mapName);
 
         if (data != null)
         {
@@ -86,6 +91,18 @@ public class GameManager : MonoBehaviour
     // Method to save player data when the application quits
     void OnApplicationQuit()
     {
-        SafeSystem.SavePlayerData(this);
+        SavePlayerData();  // Call the method that handles the saving of data
+    }
+    // Method to save the player data
+    private void SavePlayerData()
+    {
+        SafeSystem.SaveMapData(currentMapName, playersCurrentHealth, playerMoney);  // Save data specific to the current map
+    }
+
+
+    // Method to save player data when the scene changes
+    public void SaveBeforeSceneChange()
+    {
+        SavePlayerData();  // Save the current data
     }
 }
