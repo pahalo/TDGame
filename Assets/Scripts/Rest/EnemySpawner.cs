@@ -2,23 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Wave
+{
+    public List<GameObject> enemyPrefabs; // List of enemy prefabs for this wave
+    public List<int> enemyCounts;         // Number of enemies per type
+    public List<float> spawnIntervals;    // Spawn intervals between types
+}
+
 public class EnemySpawner : MonoBehaviour
 {
-     // The prefab of the enemy to spawn
-    public GameObject enemyPrefab;
-    // The point where enemies should be spawned, set to the first element of the roadPoints list
     private Transform spawnPoint;
+
+    public List<Wave> waves;              // List of waves for the level
+    private int currentWaveIndex = 0;     // Current wave index
 
     void Start()
     {
-        // Find the Road component in the scene and get the first waypoint as the spawn point
         Road road = FindObjectOfType<Road>();
         if (road != null)
         {
             List<Transform> waypoints = road.GetRoadPoints();
             if (waypoints != null && waypoints.Count > 0)
             {
-                // Set spawnPoint to the first waypoint
                 spawnPoint = waypoints[0];
             }
             else
@@ -34,24 +40,44 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        // Dont spawn enmies if the game is paused
-        if(PauseMenu.gameIsPaused == true) { return; }
+        if (PauseMenu.gameIsPaused) { return; }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnEnemy();
+            Debug.Log("Spawning wave: " + currentWaveIndex);
+            if (currentWaveIndex < waves.Count)
+            {
+                StartCoroutine(SpawnWave(waves[currentWaveIndex]));
+                currentWaveIndex++;
+            }
+            else
+            {
+                Debug.Log("Won");
+            }
         }
     }
 
-    // Creates an instance of the enemy at the spawn point
-    private void SpawnEnemy()
+    private IEnumerator SpawnWave(Wave wave)
     {
-        if (enemyPrefab != null && spawnPoint != null)
+        for (int i = 0; i < wave.enemyPrefabs.Count; i++)
+        {
+            for (int j = 0; j < wave.enemyCounts[i]; j++)
+            {
+                SpawnEnemy(wave.enemyPrefabs[i]);
+                yield return new WaitForSeconds(wave.spawnIntervals[i]);
+            }
+        }
+    }
+
+    private void SpawnEnemy(GameObject enemyPrefab)
+    {
+        if (spawnPoint != null)
         {
             Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
         }
         else
         {
-            Debug.LogError("Enemy prefab or spawn point not set.");
+            Debug.LogError("Spawn point not set.");
         }
     }
 }
