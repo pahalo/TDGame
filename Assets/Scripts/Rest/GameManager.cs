@@ -3,31 +3,65 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // Static instance of GameManager which allows it to be accessed by any other script.
+    private static GameManager instance;
+
     [SerializeField]
     private int maxHealth = 10;
     [SerializeField]
     private int playersCurrentHealth;
     [SerializeField]
-    private int playerMoney = 0;
+    private int currentPlayerMoney = 0;
+    [SerializeField]
+    private int playerStartMoney = 200;
 
     // Static flag to control whether saved data should be loaded
     public static bool loadSavedData = false;
     private string currentMapName;  // The name of the current map
 
-    private void Start()
-    {
-        // Get the current scene name dynamically
-        currentMapName = SceneManager.GetActiveScene().name;
-        
-        // Set player's health to max
-        playersCurrentHealth = maxHealth;
+    private EnemySpawner enemySpawner;
 
-        // Load saved data only if the flag is set to true
-        if (loadSavedData)
+    // Ensure there's only one instance of GameManager
+    private void Awake()
+    {
+        if (instance == null)
         {
-            LoadMapData(currentMapName);  // Load data specific to the current map
+            instance = this;
+            DontDestroyOnLoad(gameObject);  // Prevent the GameManager from being destroyed when loading a new scene
+            SceneManager.sceneLoaded += OnSceneLoaded; // 
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);  // Destroy the new GameManager instance if one already exists
+            return;
         }
     }
+    // Call this method if the scene is beeing changed so the new enemy spawn point is correct
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Aktualisiere den Namen der aktuellen Map
+        currentMapName = scene.name;
+
+        if (enemySpawner == null)
+        {
+            enemySpawner = FindObjectOfType<EnemySpawner>();
+        }
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.InitializeSpawnPoint();
+            // Also check if saved data should be loaded
+            if (loadSavedData)
+            {
+                currentMapName = SceneManager.GetActiveScene().name;
+                LoadMapData(currentMapName);  // Load data specific to the current map
+            }
+        }
+        else
+        {
+        Debug.LogError("EnemySpawner not found in the scene.");
+        }
+    }   
 
     // Method to apply damage to the player
     public void TakeDamage(int damage)
@@ -44,15 +78,15 @@ public class GameManager : MonoBehaviour
     // Method to add money to the player's balance
     public void AddMoney(int amount)
     {
-        playerMoney += amount;
+        currentPlayerMoney += amount;
     }
 
     // Method to spend money, checks if the player has enough money
     public bool SpendMoney(int amount)
     {
-        if (playerMoney >= amount)
+        if (currentPlayerMoney >= amount)
         {
-            playerMoney -= amount;
+            currentPlayerMoney -= amount;
             return true;
         }
         return false;
@@ -61,13 +95,23 @@ public class GameManager : MonoBehaviour
     // Getter for player's current money
     public int PlayerMoney
     {
-        get { return playerMoney; }
+        get { return currentPlayerMoney; }
+    }
+    // Getter for player's current money
+    public int PlayerStartMoney
+    {
+        get { return playerStartMoney; }
     }
 
     // Getter for player's current health
     public int PlayersCurrentHealth
     {
         get { return playersCurrentHealth; }
+        set { playersCurrentHealth = value; }  // Neuer Setter hinzugefügt
+    }
+    public int MaxHealth
+    {
+        get { return maxHealth; }
     }
 
     // Method called when the player's health reaches zero
@@ -83,7 +127,7 @@ public class GameManager : MonoBehaviour
 
         if (data != null)
         {
-            playerMoney = data.money;
+            currentPlayerMoney = data.money;
             playersCurrentHealth = data.health;
         }
     }
@@ -93,16 +137,29 @@ public class GameManager : MonoBehaviour
     {
         SavePlayerData();  // Call the method that handles the saving of data
     }
+
     // Method to save the player data
     private void SavePlayerData()
     {
-        SafeSystem.SaveMapData(currentMapName, playersCurrentHealth, playerMoney);  // Save data specific to the current map
+        SafeSystem.SaveMapData(currentMapName, playersCurrentHealth, currentPlayerMoney);  // Save data specific to the current map
     }
-
 
     // Method to save player data when the scene changes
     public void SaveBeforeSceneChange()
     {
         SavePlayerData();  // Save the current data
+    }
+
+    // Public method to access the instance of the GameManager
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                Debug.LogError("GameManager instance is null. Ensure a GameManager exists in the scene.");
+            }
+            return instance;
+        }
     }
 }

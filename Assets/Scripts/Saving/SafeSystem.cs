@@ -13,7 +13,6 @@ public static class SafeSystem
     public static void SaveMapData(string mapName, int health, int money)
     {
         string path = GetMapFilePath(mapName);
-
         try
         {
             BinaryFormatter formatter = new BinaryFormatter();

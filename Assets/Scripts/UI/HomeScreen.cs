@@ -46,13 +46,27 @@ public class HomeScreen : MonoBehaviour
     {
         // Ensure that saved data is not loaded
         GameManager.loadSavedData = false;
-        
+    
+        // Get the current amount of money the player has
+        int currentMoney = GameManager.Instance.PlayerMoney;
+
+        // Spend all the current money to set the player's money to 0
+        GameManager.Instance.SpendMoney(currentMoney);
+
+        // Add the player's starting money
+        int startingMoney = GameManager.Instance.PlayerStartMoney;
+        GameManager.Instance.AddMoney(startingMoney);
+
+        // Set the player's health to maximum using the MaxHealth property
+        GameManager.Instance.PlayersCurrentHealth = GameManager.Instance.MaxHealth;
+
         // Delete saved data for the specified map before starting a new game
         SafeSystem.DeleteMapData(mapName.ToString());
 
         // Load the scene based on the enum value
         SceneManager.LoadScene(mapName.ToString());
     }
+
     
     // This function loads saved data and then loads the specified scene
     private void ResumeGame(MapName mapName)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Wave
@@ -17,7 +18,8 @@ public class EnemySpawner : MonoBehaviour
     public List<Wave> waves;              // List of waves for the level
     private int currentWaveIndex = 0;     // Current wave index
 
-    void Start()
+    // Set spawnPoint in OnEnable to ensure it's set every time the object is active
+    public void InitializeSpawnPoint()
     {
         Road road = FindObjectOfType<Road>();
         if (road != null)
@@ -32,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
                 Debug.LogError("No waypoints found in Road component.");
             }
         }
-        else
+        else if(SceneManager.GetActiveScene().name != "HomeScreen")
         {
             Debug.LogError("No Road component found in the scene.");
         }
@@ -79,5 +81,11 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.LogError("Spawn point not set.");
         }
+    }
+    // Get and set the enemy Wave
+    public int CurrentWaveIndex
+    {
+        get { return currentWaveIndex; }
+        set { currentWaveIndex = value; }
     }
 }
