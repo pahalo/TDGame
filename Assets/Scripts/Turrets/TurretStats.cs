@@ -42,6 +42,7 @@ public class TurretStats : MonoBehaviour
     private float turretShotSpeed = 2f;
     [SerializeField]
     private int turretID;
+    private int turretIndex; // Index to rebuild turret when loading a map
     [SerializeField]
     private float turretRange = 3f;
     [SerializeField]
@@ -156,6 +157,15 @@ public class TurretStats : MonoBehaviour
     public void SetTurretID(int newID)
     {
         turretID = newID;
+    }
+    public void SetTurretIndex(int index)
+    {
+        turretIndex = index;
+    }
+
+    public int GetTurretIndex()
+    {
+        return turretIndex;
     }
 
     public int GetTurretCost()

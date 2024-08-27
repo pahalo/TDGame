@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SafeSystem
@@ -10,7 +11,7 @@ public static class SafeSystem
     }
 
     // Method to save player data for a specific map
-    public static void SaveMapData(string mapName, int health, int money)
+    public static void SaveMapData(string mapName, int health, int money, List<TurretData> turrets)
     {
         string path = GetMapFilePath(mapName);
         try
@@ -18,7 +19,7 @@ public static class SafeSystem
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(path, FileMode.Create))
             {
-                MapData mapData = new MapData(mapName, health, money);
+                MapData mapData = new MapData(mapName, health, money, turrets);
                 formatter.Serialize(stream, mapData);
             }
         }
@@ -27,7 +28,6 @@ public static class SafeSystem
             Debug.LogError("Failed to save map data: " + ex.Message);
         }
     }
-
 
     // Method to load player data for a specific map
     public static MapData LoadMapData(string mapName)
@@ -52,7 +52,7 @@ public static class SafeSystem
             }
         }
         else
-        {
+        {   
             Debug.LogWarning("Map save file not found for " + mapName);
             return null;
         }

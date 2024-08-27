@@ -729,6 +729,8 @@ MonoBehaviour:
   playButton2: {fileID: 534820704}
   resumeGameButton: {fileID: 112001071}
   resumeGameButton2: {fileID: 663229300}
+  map1: 0
+  map2: 1
 --- !u!4 &604550154
 Transform:
   m_ObjectHideFlags: 0
@@ -1440,6 +1442,126 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307815085}
   m_CullTransparentMesh: 1
+--- !u!1 &1669225057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1669225063}
+  - component: {fileID: 1669225062}
+  - component: {fileID: 1669225061}
+  - component: {fileID: 1669225060}
+  - component: {fileID: 1669225059}
+  - component: {fileID: 1669225058}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1669225058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669225057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eea555d5313641c5927e7c607b37a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretPrefabs:
+  - {fileID: 3613950227002216381, guid: 71d8885381ffa49d090d56ab4bf6f72d, type: 3}
+  - {fileID: 1642108811423094988, guid: 57e27c779ce3648a3808648f5fa9f028, type: 3}
+--- !u!114 &1669225059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669225057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9745af6a368485ea9f823cafb0f09b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1669225060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669225057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bb487a26b52461a8365e75de071a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1669225061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669225057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822ae59764b134c86ae40336eefb2244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
+    enemyCounts: 02000000
+    spawnIntervals:
+    - 1
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: b92f3e615a9e74a68bb3726afa06cd13, type: 3}
+    enemyCounts: 02000000
+    spawnIntervals:
+    - 2
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
+    - {fileID: 4178542695061899853, guid: b92f3e615a9e74a68bb3726afa06cd13, type: 3}
+    enemyCounts: 02000000
+    spawnIntervals:
+    - 1
+--- !u!114 &1669225062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669225057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a67f5169c6ab14ecabee7f05d87782ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  playersCurrentHealth: 0
+  currentPlayerMoney: 0
+  playerStartMoney: 200
+--- !u!4 &1669225063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669225057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2014591149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1821,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1669225063}
   - {fileID: 604550154}
   - {fileID: 658936329}
   - {fileID: 480309181}

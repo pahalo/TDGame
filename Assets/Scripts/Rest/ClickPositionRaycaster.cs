@@ -80,7 +80,7 @@ public class ClickPositionRaycaster : MonoBehaviour
                 else
                 {
                     Debug.Log("Hit Position: " + hit.point);
-                    buildTurrets.PlaceTurretAtPosition(hit.point);
+                    buildTurrets.PlaceTurretAtPosition(hit.point, false);
                 }
             }
         }
