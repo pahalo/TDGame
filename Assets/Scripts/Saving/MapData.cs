@@ -26,8 +26,9 @@ public class MapData
     public int health;
     public int money;
     public List<TurretData> turrets;
+    public int currentWaveIndex;
 
-    public MapData(string mapName, int health, int money, List<TurretData> turrets)
+    public MapData(string mapName, int health, int money, List<TurretData> turrets, int currentWaveIndex)
     {
         this.mapName = mapName;
         this.health = health;
@@ -40,6 +41,7 @@ public class MapData
         {
             this.turrets = turrets;
         }
+        this.currentWaveIndex = currentWaveIndex;
     }
 }
 [Serializable]

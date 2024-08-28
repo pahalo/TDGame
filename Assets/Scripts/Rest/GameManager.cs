@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
     public int PlayersCurrentHealth
     {
         get { return playersCurrentHealth; }
-        set { playersCurrentHealth = value; }  // Neuer Setter hinzugefügt
+        set { playersCurrentHealth = value; } 
     }
     public int MaxHealth
     {
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
             Quaternion rotation = turret.transform.rotation;
             int turretIndex = turret.GetTurretIndex();
             int turretID = turret.GetTurretID();
-
+            Debug.Log(turretIndex);
             TurretData data = new TurretData(position, rotation, turretIndex, turretID);
             turretsData.Add(data);
         }
@@ -151,7 +151,10 @@ public class GameManager : MonoBehaviour
         {
             currentPlayerMoney = data.money;
             playersCurrentHealth = data.health;
-
+            if (enemySpawner != null)
+            {
+                enemySpawner.CurrentWaveIndex = data.currentWaveIndex; // Load wave index
+            }
             // Going through all saved turrets and loading the data
             foreach (TurretData turretData in data.turrets)
             {
@@ -175,7 +178,8 @@ public class GameManager : MonoBehaviour
     private void SavePlayerData()
     {
         List<TurretData> turretsData = CollectTurretData();
-        SafeSystem.SaveMapData(currentMapName, playersCurrentHealth, currentPlayerMoney, turretsData);  // Save data specific to the current map
+        int currentWaveIndex = enemySpawner.CurrentWaveIndex;
+        SafeSystem.SaveMapData(currentMapName, playersCurrentHealth, currentPlayerMoney, turretsData,currentWaveIndex);  // Save data specific to the current map
     }
 
     // Method to save player data when the scene changes

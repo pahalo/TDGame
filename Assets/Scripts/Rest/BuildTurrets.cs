@@ -37,7 +37,7 @@ public class BuildTurrets : MonoBehaviour
     public void PlaceTurretAtPosition(Vector3 position, bool freePlacement = false, int? turretIndex = null)
     {
         int indexToUse = turretIndex.HasValue ? turretIndex.Value : selectedTurretIndex;
-
+        
         if (turretPrefabs[indexToUse] != null)
         {   
             // Get the TurretStats script of the turret to build in order to get the turret cost
@@ -47,7 +47,6 @@ public class BuildTurrets : MonoBehaviour
             if(freePlacement || gameManager.SpendMoney(turretStats.GetTurretCost())){
                 // Instantiate the chosen turret at the given position
                 GameObject newTurret = Instantiate(turretPrefabs[indexToUse], position, Quaternion.identity);
-
                 // Set the turret ID
                 SetTurretID(newTurret);
 

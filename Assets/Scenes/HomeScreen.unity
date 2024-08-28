@@ -1478,6 +1478,8 @@ MonoBehaviour:
   turretPrefabs:
   - {fileID: 3613950227002216381, guid: 71d8885381ffa49d090d56ab4bf6f72d, type: 3}
   - {fileID: 1642108811423094988, guid: 57e27c779ce3648a3808648f5fa9f028, type: 3}
+  - {fileID: 2196121349986666316, guid: 3155dca00ca514a4da361985d015a15d, type: 3}
+  - {fileID: 4568018673853443902, guid: e894cc08174984566823517e3481b132, type: 3}
 --- !u!114 &1669225059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1517,20 +1519,50 @@ MonoBehaviour:
   waves:
   - enemyPrefabs:
     - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
+    enemyCounts: 01000000
+    spawnIntervals:
+    - 1
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
     enemyCounts: 02000000
     spawnIntervals:
     - 1
   - enemyPrefabs:
-    - {fileID: 4178542695061899853, guid: b92f3e615a9e74a68bb3726afa06cd13, type: 3}
-    enemyCounts: 02000000
+    - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
+    enemyCounts: 03000000
     spawnIntervals:
-    - 2
+    - 1
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
+    enemyCounts: 04000000
+    spawnIntervals:
+    - 1
   - enemyPrefabs:
     - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
     - {fileID: 4178542695061899853, guid: b92f3e615a9e74a68bb3726afa06cd13, type: 3}
-    enemyCounts: 02000000
+    enemyCounts: 0400000001000000
     spawnIntervals:
     - 1
+    - 1
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
+    - {fileID: 4178542695061899853, guid: b92f3e615a9e74a68bb3726afa06cd13, type: 3}
+    - {fileID: 4178542695061899853, guid: b92f3e615a9e74a68bb3726afa06cd13, type: 3}
+    enemyCounts: 040000000100000002000000
+    spawnIntervals:
+    - 1
+    - 3
+    - 1
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: 4a356aa1a53ee42e2b3d93361d2464e7, type: 3}
+    enemyCounts: 08000000
+    spawnIntervals:
+    - 0.5
+  - enemyPrefabs:
+    - {fileID: 4178542695061899853, guid: b92f3e615a9e74a68bb3726afa06cd13, type: 3}
+    enemyCounts: 04000000
+    spawnIntervals:
+    - 1.5
 --- !u!114 &1669225062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1546,7 +1578,7 @@ MonoBehaviour:
   maxHealth: 10
   playersCurrentHealth: 0
   currentPlayerMoney: 0
-  playerStartMoney: 200
+  playerStartMoney: 1000
 --- !u!4 &1669225063
 Transform:
   m_ObjectHideFlags: 0

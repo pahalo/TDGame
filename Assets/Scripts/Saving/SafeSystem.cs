@@ -11,7 +11,7 @@ public static class SafeSystem
     }
 
     // Method to save player data for a specific map
-    public static void SaveMapData(string mapName, int health, int money, List<TurretData> turrets)
+    public static void SaveMapData(string mapName, int health, int money, List<TurretData> turrets,int currentWaveIndex)
     {
         string path = GetMapFilePath(mapName);
         try
@@ -19,7 +19,7 @@ public static class SafeSystem
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(path, FileMode.Create))
             {
-                MapData mapData = new MapData(mapName, health, money, turrets);
+                MapData mapData = new MapData(mapName, health, money, turrets,currentWaveIndex);
                 formatter.Serialize(stream, mapData);
             }
         }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class UpgradeTurrets : MonoBehaviour
 {
     private GameManager gameManager;
+    private BuildTurrets buildTurrets;
 
     private void Start()
     {
@@ -11,6 +12,13 @@ public class UpgradeTurrets : MonoBehaviour
         if (gameManager == null)
         {
             Debug.LogError("GameManager not found in the scene.");
+        }
+
+
+        buildTurrets = FindObjectOfType<BuildTurrets>();
+        if (buildTurrets == null)
+        {
+            Debug.LogError("BuildTurrets not found in the scene.");
         }
     }
 
@@ -59,6 +67,17 @@ public class UpgradeTurrets : MonoBehaviour
 
                 // Transfer the turret ID from the old turret to the new turret
                 newTurretStats.SetTurretID(oldTurretID);
+
+                // Set the new turret index based on the upgraded prefab
+                // Assuming that the prefab's position in turretPrefabs list determines its index
+                for (int i = 0; i < buildTurrets.turretPrefabs.Length; i++)
+                {
+                    if (buildTurrets.turretPrefabs[i] == nextPrefab)
+                    {
+                        newTurretStats.SetTurretIndex(i);
+                        break;
+                    }
+                }
             }
             else
             {
