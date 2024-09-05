@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int playerStartMoney = 200;
 
+    // The number the money will be divided by if he sells the turret
+    private int factorOfSellingOnMoney = 2;
+
     // Static flag to control whether saved data should be loaded
     public static bool loadSavedData = false;
     private string currentMapName;  // The name of the current map
@@ -115,6 +118,11 @@ public class GameManager : MonoBehaviour
     public int MaxHealth
     {
         get { return maxHealth; }
+    } 
+    public int FactorOfSellingOnMoney
+    {
+        get { return factorOfSellingOnMoney; }
+        set { factorOfSellingOnMoney = value; }
     }
 
     // Method called when the player's health reaches zero

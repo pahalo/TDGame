@@ -62,9 +62,6 @@ public class UpgradeTurrets : MonoBehaviour
             // Ensure the new turret has a TurretStats component before proceeding
             if (newTurretStats != null)
             {
-                // Set the level of the new turret to be one higher than the previous turret
-                newTurretStats.SetTurretLevel(turretStats.GetTurretLevel() + 1);
-
                 // Transfer the turret ID from the old turret to the new turret
                 newTurretStats.SetTurretID(oldTurretID);
 

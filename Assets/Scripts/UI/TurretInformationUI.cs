@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
 public class TurretInformationUI : MonoBehaviour
 {
@@ -7,15 +8,26 @@ public class TurretInformationUI : MonoBehaviour
     [SerializeField] private Button path1Button;      // Button for Path 1
     [SerializeField] private Button path2Button;      // Button for Path 2
     [SerializeField] private Button closeButton;      // Button to close the UI
+    [SerializeField] private Button sellButton;       // Button to Sell the turret
+    [SerializeField] private TextMeshProUGUI turretNameText; 
+    [SerializeField] private TextMeshProUGUI sellAmountText;
 
     private ClickPositionRaycaster clickPositionRaycaster;
+    private DestroyTurret destroyTurret;
     private RaycastHit storedHit;
+
+    private int moneyForSelling;
 
     private void Start()
     {
         clickPositionRaycaster = FindObjectOfType<ClickPositionRaycaster>();
         if(clickPositionRaycaster == null){
             Debug.LogError("ClickPositionRaycaster script not found in the scene.");
+        }
+        destroyTurret = FindObjectOfType<DestroyTurret>();
+        if (destroyTurret == null)
+        {
+            Debug.LogError("DestroyTurret script not found in the scene.");
         }
         // Add listener for Path 1 button
         path1Button.onClick.AddListener(() => OnButtonClicked(0));
@@ -25,6 +37,9 @@ public class TurretInformationUI : MonoBehaviour
 
         // Add listener for Close button
         closeButton.onClick.AddListener(CloseTurretInformationUI);
+
+        // Add listener for Sell button
+        sellButton.onClick.AddListener(CallSellTurret);
 
         // Ensure the UI is inactive at the start
         turretInfoUI.SetActive(false);
@@ -37,11 +52,27 @@ public class TurretInformationUI : MonoBehaviour
         clickPositionRaycaster.ProcessTurretInteraction(storedHit);
         CloseTurretInformationUI();
     }
+    
+    // This function will call the function that will sell the turret
+    private void CallSellTurret()
+    {
+        // Get the collider of the turret which was hit and call the sell function
+        if (storedHit.collider != null)
+        {
+            destroyTurret.SellTurret(storedHit.collider.transform.parent.gameObject, moneyForSelling);
+            CloseTurretInformationUI();
+        }
+        else
+        {
+            Debug.LogWarning("No turret selected.");
+        }
+    }
 
     // Example method to activate the UI
     public void ActivateTurretInformationUI()
     {
         turretInfoUI.SetActive(true);  // Activate the UI when this method is called
+        sellAmountText.text = moneyForSelling.ToString();
     }
 
     // This function is called when the Close button is clicked
@@ -54,5 +85,23 @@ public class TurretInformationUI : MonoBehaviour
     public void SetRaycastHit(RaycastHit hit)
     {
         storedHit = hit; 
+    }
+    
+    // Method to set the turret Name into the turretName textfield in the ui
+    public void SetTurretName(string turretName)
+    {
+        if (turretNameText != null)
+        {
+            turretNameText.text = turretName;
+        }
+        else
+        {
+            Debug.LogError("TextMeshProUGUI not assigned.");
+        }
+    }
+
+    // Set the amount of money the player could get if he sells the turret
+    public void SetTurretSellPrice(int money){
+        moneyForSelling = money;
     }
 }

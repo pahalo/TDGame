@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ClickPositionRaycaster : MonoBehaviour
 {
@@ -43,7 +44,10 @@ public class ClickPositionRaycaster : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0)) // 0 is the left mouse button
-        {
+        {   
+            // Check if the player clicked on a UI Element
+            if (EventSystem.current.IsPointerOverGameObject()){  return; }
+
             // Create a ray from the camera through the mouse position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -63,6 +67,18 @@ public class ClickPositionRaycaster : MonoBehaviour
                     // Activate the turretInformationUI
                     if (turretInformationUI != null)
                     {
+                        Transform parentTransform = hit.collider.transform.parent;
+                        TurretStats turretStats = parentTransform?.GetComponent<TurretStats>();
+                        if (turretStats != null)
+                        {
+                            // Setting the Name into the turret UI but removing the (clone) at the end which is there because it is a prefab
+                            string turretName = parentTransform.name.Replace("(Clone)", "");
+                            turretInformationUI.SetTurretName(turretName);
+
+                            // Getting the turret build cost and setting the amount of money the player will get for selling it
+                            int sellAmount = turretStats.GetTurretCost() /  GameManager.Instance.FactorOfSellingOnMoney;;
+                            turretInformationUI.SetTurretSellPrice(sellAmount);
+                        }
                         turretInformationUI.ActivateTurretInformationUI();
                         turretInformationUI.SetRaycastHit(hit);
                     }
@@ -83,8 +99,6 @@ public class ClickPositionRaycaster : MonoBehaviour
     // This method is called through the buttons in the turret information ui and calls the script that will upgrade the turret
     public void ProcessTurretInteraction(RaycastHit hit)
     {
-        Debug.Log(hit);
-
         if (IsClickOnTurret(hit))
         {
             // Get the parent object of the clicked collider because the collider is on the no build zone range

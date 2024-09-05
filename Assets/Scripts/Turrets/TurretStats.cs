@@ -48,8 +48,6 @@ public class TurretStats : MonoBehaviour
     [SerializeField]
     private float turretDistanceToOtherTurrets = 1f;
     [SerializeField]
-    private int turretLevel = 1;
-    [SerializeField]
     private int turretCost = 100;
 
     private TurretAiming turretAiming;
@@ -138,17 +136,6 @@ public class TurretStats : MonoBehaviour
             turretShooting.shotSpeed = turretShotSpeed;
         }
     }
-
-    public int GetTurretLevel()
-    {
-        return turretLevel;
-    }
-
-    public void SetTurretLevel(int level)
-    {
-        turretLevel = level;
-    }
-
     public int GetTurretID()
     {
         return turretID;
