@@ -430,6 +430,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4568018673853443902, guid: e894cc08174984566823517e3481b132,
         type: 3}
+    - target: {fileID: 6481668823745700985, guid: 71d8885381ffa49d090d56ab4bf6f72d,
+        type: 3}
+      propertyPath: upgradePaths.Array.data[1].upgradePrefab
+      value: 
+      objectReference: {fileID: 2196121349986666316, guid: 3155dca00ca514a4da361985d015a15d,
+        type: 3}
     - target: {fileID: 7505681498536040313, guid: 71d8885381ffa49d090d56ab4bf6f72d,
         type: 3}
       propertyPath: bulletPrefab

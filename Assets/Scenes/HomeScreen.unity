@@ -1480,6 +1480,8 @@ MonoBehaviour:
   - {fileID: 1642108811423094988, guid: 57e27c779ce3648a3808648f5fa9f028, type: 3}
   - {fileID: 2196121349986666316, guid: 3155dca00ca514a4da361985d015a15d, type: 3}
   - {fileID: 4568018673853443902, guid: e894cc08174984566823517e3481b132, type: 3}
+  - {fileID: 5273972075292925544, guid: 29166974a9ed04cb7bf7081ef2edc8ac, type: 3}
+  - {fileID: 2853588309144341496, guid: a7f5db1cbb57949039a9e355b300464a, type: 3}
 --- !u!114 &1669225059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1578,7 +1580,7 @@ MonoBehaviour:
   maxHealth: 10
   playersCurrentHealth: 0
   currentPlayerMoney: 0
-  playerStartMoney: 1000
+  playerStartMoney: 2000
 --- !u!4 &1669225063
 Transform:
   m_ObjectHideFlags: 0
