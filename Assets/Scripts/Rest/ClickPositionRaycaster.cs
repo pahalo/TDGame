@@ -18,14 +18,14 @@ public class ClickPositionRaycaster : MonoBehaviour
         {
             Debug.LogError("BuildTurrets script not found in the scene.");
         }
-        if(upgradeTurrets == null)
+        if (upgradeTurrets == null)
         {
             Debug.LogError("UpgradeTurrets script not found in the scene.");
         }
     }
 
     void Update()
-    {   
+    {
         // If the game is paused there should be no inputs
         if (PauseMenu.gameIsPaused == true) { return; }
 
@@ -44,9 +44,9 @@ public class ClickPositionRaycaster : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0)) // 0 is the left mouse button
-        {   
+        {
             // Check if the player clicked on a UI Element
-            if (EventSystem.current.IsPointerOverGameObject()){  return; }
+            if (EventSystem.current.IsPointerOverGameObject()) { return; }
 
             // Create a ray from the camera through the mouse position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -59,7 +59,8 @@ public class ClickPositionRaycaster : MonoBehaviour
                 if (!IsClickOnTurret(hit))
                 {
                     ProcessTurretInteraction(hit);
-                } else
+                }
+                else
                 {
                     // Find the turretInformationUI script here, because that way it will be the one in the scene
                     turretInformationUI = FindObjectOfType<TurretInformationUI>();
@@ -76,8 +77,11 @@ public class ClickPositionRaycaster : MonoBehaviour
                             turretInformationUI.SetTurretName(turretName);
 
                             // Getting the turret build cost and setting the amount of money the player will get for selling it
-                            int sellAmount = turretStats.GetTurretCost() /  GameManager.Instance.FactorOfSellingOnMoney;;
+                            int sellAmount = turretStats.GetTurretCost() / GameManager.Instance.FactorOfSellingOnMoney; ;
                             turretInformationUI.SetTurretSellPrice(sellAmount);
+                            
+                             // Setting the upgrade costs on the buttons
+                            turretInformationUI.SetUpgradePathCosts(turretStats);
                         }
                         turretInformationUI.ActivateTurretInformationUI();
                         turretInformationUI.SetRaycastHit(hit);
@@ -87,11 +91,12 @@ public class ClickPositionRaycaster : MonoBehaviour
                         Debug.LogWarning("TurretInformationUI script not found in the scene.");
                     }
                 }
+            }
         }
     }
-    }
     // Check for turret selection keys and upgrade path selection keys
-    public void SelectTurret(int index){
+    public void SelectTurret(int index)
+    {
         buildTurrets.SelectTurretType(index);
         selectedPathIndex = index;
     }

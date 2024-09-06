@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
+using TMPro;
 
 public class TurretInformationUI : MonoBehaviour
 {
@@ -9,8 +9,10 @@ public class TurretInformationUI : MonoBehaviour
     [SerializeField] private Button path2Button;      // Button for Path 2
     [SerializeField] private Button closeButton;      // Button to close the UI
     [SerializeField] private Button sellButton;       // Button to Sell the turret
-    [SerializeField] private TextMeshProUGUI turretNameText; 
+    [SerializeField] private TextMeshProUGUI turretNameText;
     [SerializeField] private TextMeshProUGUI sellAmountText;
+    [SerializeField] private TextMeshProUGUI pathOneTurretName;
+    [SerializeField] private TextMeshProUGUI pathTwoTurretName;
 
     private ClickPositionRaycaster clickPositionRaycaster;
     private DestroyTurret destroyTurret;
@@ -21,7 +23,8 @@ public class TurretInformationUI : MonoBehaviour
     private void Start()
     {
         clickPositionRaycaster = FindObjectOfType<ClickPositionRaycaster>();
-        if(clickPositionRaycaster == null){
+        if (clickPositionRaycaster == null)
+        {
             Debug.LogError("ClickPositionRaycaster script not found in the scene.");
         }
         destroyTurret = FindObjectOfType<DestroyTurret>();
@@ -29,6 +32,7 @@ public class TurretInformationUI : MonoBehaviour
         {
             Debug.LogError("DestroyTurret script not found in the scene.");
         }
+
         // Add listener for Path 1 button
         path1Button.onClick.AddListener(() => OnButtonClicked(0));
 
@@ -52,7 +56,7 @@ public class TurretInformationUI : MonoBehaviour
         clickPositionRaycaster.ProcessTurretInteraction(storedHit);
         CloseTurretInformationUI();
     }
-    
+
     // This function will call the function that will sell the turret
     private void CallSellTurret()
     {
@@ -81,12 +85,12 @@ public class TurretInformationUI : MonoBehaviour
         turretInfoUI.SetActive(false);  // Deactivate the UI when this method is called
     }
 
-    // Setter-Methode to safe the raycast value where the player tapped on the screen
+    // Setter-Methode to save the raycast value where the player tapped on the screen
     public void SetRaycastHit(RaycastHit hit)
     {
-        storedHit = hit; 
+        storedHit = hit;
     }
-    
+
     // Method to set the turret Name into the turretName textfield in the ui
     public void SetTurretName(string turretName)
     {
@@ -101,7 +105,59 @@ public class TurretInformationUI : MonoBehaviour
     }
 
     // Set the amount of money the player could get if he sells the turret
-    public void SetTurretSellPrice(int money){
+    public void SetTurretSellPrice(int money)
+    {
         moneyForSelling = money;
     }
+    public void SetUpgradePathCosts(TurretStats turretStats)
+    {
+        // Get cost and name for Path 1 (index 0)
+        if (turretStats.upgradePaths.Count > 0 && turretStats.upgradePaths[0].upgradePrefab != null)
+        {
+            TurretStats path1Stats = turretStats.upgradePaths[0].upgradePrefab.GetComponent<TurretStats>();
+            if (path1Stats != null)
+            {
+                int path1Cost = path1Stats.GetTurretCost();
+                string path1Name = turretStats.upgradePaths[0].upgradePrefab.name.Replace("(Clone)", "");
+
+                // Set the cost on the button
+                TextMeshProUGUI path1ButtonText = path1Button.GetComponentInChildren<TextMeshProUGUI>();
+                if (path1ButtonText != null)
+                {
+                    path1ButtonText.text = path1Cost.ToString();
+                }
+
+                // Getting the turret build cost and setting the amount of money the player will get for selling it
+                if (pathOneTurretName != null)
+                {
+                    pathOneTurretName.text = path1Name;
+                }
+            }
+        }
+
+        // Get cost and name for Path 2 (index 1)
+        if (turretStats.upgradePaths.Count > 1 && turretStats.upgradePaths[1].upgradePrefab != null)
+        {
+            TurretStats path2Stats = turretStats.upgradePaths[1].upgradePrefab.GetComponent<TurretStats>();
+            if (path2Stats != null)
+            {
+                int path2Cost = path2Stats.GetTurretCost();
+                string path2Name = turretStats.upgradePaths[1].upgradePrefab.name.Replace("(Clone)", "");
+
+                // Set the cost on the button
+                TextMeshProUGUI path2ButtonText = path2Button.GetComponentInChildren<TextMeshProUGUI>();
+                if (path2ButtonText != null)
+                {
+                    path2ButtonText.text = path2Cost.ToString();
+                }
+
+                // Getting the turret build cost and setting the amount of money the player will get for selling it
+                if (pathTwoTurretName != null)
+                {
+                    pathTwoTurretName.text = path2Name;
+                }
+            }
+        }
+    }
+
 }
